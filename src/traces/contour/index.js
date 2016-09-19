@@ -23,6 +23,7 @@ Contour.moduleType = 'trace';
 Contour.name = 'contour';
 Contour.basePlotModule = require('../../plots/cartesian');
 Contour.categories = ['cartesian', '2dMap', 'contour'];
+Contour.layers = ['maplayer', 'imagelayer'];
 Contour.meta = {
     description: [
         'The data from which contour lines are computed is set in `z`.',

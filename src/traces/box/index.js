@@ -24,6 +24,7 @@ Box.moduleType = 'trace';
 Box.name = 'box';
 Box.basePlotModule = require('../../plots/cartesian');
 Box.categories = ['cartesian', 'symbols', 'oriented', 'box', 'showLegend'];
+Box.layers = ['boxlayer'];
 Box.meta = {
     description: [
         'In vertical (horizontal) box plots,',

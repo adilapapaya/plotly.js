@@ -23,6 +23,7 @@ Heatmap.moduleType = 'trace';
 Heatmap.name = 'heatmap';
 Heatmap.basePlotModule = require('../../plots/cartesian');
 Heatmap.categories = ['cartesian', '2dMap'];
+Heatmap.layers = ['imagelayer'];
 Heatmap.meta = {
     description: [
         'The data that describes the heatmap value-to-color mapping',

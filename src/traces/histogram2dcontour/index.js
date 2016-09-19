@@ -23,6 +23,7 @@ Histogram2dContour.moduleType = 'trace';
 Histogram2dContour.name = 'histogram2dcontour';
 Histogram2dContour.basePlotModule = require('../../plots/cartesian');
 Histogram2dContour.categories = ['cartesian', '2dMap', 'contour', 'histogram'];
+Histogram2dContour.layers = ['maplayer', 'imagelayer'];
 Histogram2dContour.meta = {
     hrName: 'histogram_2d_contour',
     description: [

@@ -40,6 +40,7 @@ Histogram.moduleType = 'trace';
 Histogram.name = 'histogram';
 Histogram.basePlotModule = require('../../plots/cartesian');
 Histogram.categories = ['cartesian', 'bar', 'histogram', 'oriented', 'errorBarsOK', 'showLegend'];
+Histogram.layers = ['barlayer'];
 Histogram.meta = {
     description: [
         'The sample data from which statistics are computed is set in `x`',
