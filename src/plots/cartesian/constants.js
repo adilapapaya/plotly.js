@@ -37,6 +37,22 @@ module.exports = {
     AX_ID_PATTERN: /^[xyz][0-9]*$/,
     AX_NAME_PATTERN: /^[xyz]axis[0-9]*$/,
 
+    // Layers to keep plot types in the right order.
+    // from back to front:
+    //
+    // 1. heatmaps, 2D histos and contour maps
+    // 2. bars / 1D histos
+    // 3. errorbars for bars and scatter
+    // 4. scatter
+    // 5. box plots
+    LAYER_ORDER: [
+        'imagelayer',
+        'maplayer',
+        'barlayer',
+        'boxlayer',
+        'scatterlayer'
+    ],
+
     // ms between first mousedown and 2nd mouseup to constitute dblclick...
     // we don't seem to have access to the system setting
     DBLCLICKDELAY: 300,
