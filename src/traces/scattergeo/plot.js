@@ -125,10 +125,14 @@ function makeLineGeoJSON(trace) {
     };
 }
 
-plotScatterGeo.plot = function(geo, scattergeoData) {
+plotScatterGeo.plot = function(geo, calcData) {
+    function keyFunc(d) {
+        return d[0].trace.uid;
+    }
+
     var gScatterGeoTraces = geo.framework.select('.scattergeolayer')
         .selectAll('g.trace.scattergeo')
-        .data(scattergeoData, function(trace) { return trace.uid; });
+        .data(calcData, keyFunc);
 
     gScatterGeoTraces.enter().append('g')
         .attr('class', 'trace scattergeo');
@@ -138,8 +142,9 @@ plotScatterGeo.plot = function(geo, scattergeoData) {
     // TODO find a way to order the inner nodes on update
     gScatterGeoTraces.selectAll('*').remove();
 
-    gScatterGeoTraces.each(function(trace) {
-        var s = d3.select(this);
+    gScatterGeoTraces.each(function(calcTrace) {
+        var s = d3.select(this),
+            trace = calcTrace[0].trace;
 
         if(!subTypes.hasLines(trace)) return;
 
@@ -151,8 +156,9 @@ plotScatterGeo.plot = function(geo, scattergeoData) {
         // TODO add hover - how?
     });
 
-    gScatterGeoTraces.each(function(trace) {
+    gScatterGeoTraces.each(function(calcTrace) {
         var s = d3.select(this),
+            trace = calcTrace[0].trace,
             showMarkers = subTypes.hasMarkers(trace),
             showText = subTypes.hasText(trace);
 
@@ -231,7 +237,9 @@ plotScatterGeo.style = function(geo) {
         return trace.opacity;
     });
 
-    selection.each(function(trace) {
+    selection.each(function(calcTrace) {
+        var trace = calcTrace[0].trace;
+
         d3.select(this).selectAll('path.point')
             .call(Drawing.pointStyle, trace);
         d3.select(this).selectAll('text')
