@@ -20,6 +20,7 @@ dependencies:
 
 test:
   override:
+    - npm run test-image -- gl2d_multiple_subplots
     - npm run test-image
     - npm run test-image -- gl2d_* --queue
     - npm run test-export
