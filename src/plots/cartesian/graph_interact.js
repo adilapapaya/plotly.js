@@ -499,7 +499,7 @@ function hover(gd, evt, subplot) {
         };
 
         // add ref to subplot object (non-cartesian case)
-        if(fullLayout[subplotId]._subplot) {
+        if(fullLayout[subplotId]) {
             pointData.subplot = fullLayout[subplotId]._subplot;
         }
 
