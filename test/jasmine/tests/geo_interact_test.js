@@ -7,6 +7,8 @@ var createGraphDiv = require('../assets/create_graph_div');
 var destroyGraphDiv = require('../assets/destroy_graph_div');
 var mouseEvent = require('../assets/mouse_event');
 
+var HOVERMINTIME = require('@src/plots/cartesian/constants').HOVERMINTIME;
+
 
 describe('Test geo interactions', function() {
     'use strict';
@@ -47,7 +49,7 @@ describe('Test geo interactions', function() {
 
         describe('scattergeo hover labels', function() {
             beforeEach(function() {
-                mouseEventScatterGeo('mouseover');
+                mouseEventScatterGeo('mousemove');
             });
 
             it('should show one hover text group', function() {
@@ -75,7 +77,7 @@ describe('Test geo interactions', function() {
                     ptData = eventData.points[0];
                 });
 
-                mouseEventScatterGeo('mouseover');
+                mouseEventScatterGeo('mousemove');
             });
 
             it('should contain the correct fields', function() {
@@ -102,6 +104,7 @@ describe('Test geo interactions', function() {
                     ptData = eventData.points[0];
                 });
 
+                mouseEventScatterGeo('mousemove');
                 mouseEventScatterGeo('click');
             });
 
@@ -124,13 +127,16 @@ describe('Test geo interactions', function() {
         describe('scattergeo unhover events', function() {
             var ptData;
 
-            beforeEach(function() {
+            beforeEach(function(done) {
                 gd.on('plotly_unhover', function(eventData) {
                     ptData = eventData.points[0];
                 });
 
-                mouseEventScatterGeo('mouseover');
-                mouseEventScatterGeo('mouseout');
+                mouseEventScatterGeo('mousemove');
+                setTimeout(function() {
+                    mouseEvent('mousemove', 400, 200);
+                    done();
+                }, HOVERMINTIME + 10);
             });
 
             it('should contain the correct fields', function() {
@@ -419,6 +425,7 @@ describe('Test geo interactions', function() {
                         done();
                     }
 
+                    gd.calcdata = undefined;
                     Plotly.plot(gd);
                     i++;
                 }, INTERVAL);
@@ -449,6 +456,7 @@ describe('Test geo interactions', function() {
                         done();
                     }
 
+                    gd.calcdata = undefined;
                     Plotly.plot(gd);
                     i++;
                 }, INTERVAL);
@@ -479,6 +487,7 @@ describe('Test geo interactions', function() {
                         done();
                     }
 
+                    gd.calcdata = undefined;
                     Plotly.plot(gd);
                     i++;
                 }, INTERVAL);
@@ -493,6 +502,7 @@ describe('Test geo interactions', function() {
                 var trace1 = gd.data[1];
                 trace1.locations.shift();
 
+                gd.calcdata = undefined;
                 Plotly.plot(gd).then(function() {
                     expect(countTraces('scattergeo')).toBe(1);
                     expect(countTraces('choropleth')).toBe(1);
@@ -519,6 +529,7 @@ describe('Test geo interactions', function() {
                 trace1.locations = locationsQueue;
                 trace1.z = zQueue;
 
+                gd.calcdata = undefined;
                 Plotly.plot(gd).then(function() {
                     expect(countTraces('scattergeo')).toBe(1);
                     expect(countTraces('choropleth')).toBe(1);
